@@ -34,7 +34,7 @@ func (m *Matrix) isValid() error {
 			return errMatrixNotSquare
 		}
 		for _, element := range row {
-			if _, err := strconv.Atoi(strings.Trim(element, " ")); err != nil {
+			if _, err := strconv.Atoi(element); err != nil {
 				errMsg := errMatrixInvalidNumber.Error() + "\tCaused by: " + err.Error() + "\n"
 				return errors.New(errMsg)
 			}
@@ -76,7 +76,7 @@ func (m *Matrix) sum() string {
 	result := big.NewInt(0)
 	for _, row := range m.records {
 		for _, num := range row {
-			n, _ := strconv.ParseInt(strings.Trim(num, " "), 10, 64)
+			n, _ := strconv.ParseInt(num, 10, 64)
 			result.Add(result, big.NewInt(n))
 		}
 	}
@@ -88,10 +88,7 @@ func (m *Matrix) multiply() string {
 	result := big.NewInt(1)
 	for _, row := range m.records {
 		for _, num := range row {
-			n, err := strconv.ParseInt(strings.Trim(num, " "), 10, 64)
-			if err != nil {
-				fmt.Print(err.Error())
-			}
+			n, _ := strconv.ParseInt(num, 10, 64)
 			result.Mul(result, big.NewInt(n))
 		}
 	}
